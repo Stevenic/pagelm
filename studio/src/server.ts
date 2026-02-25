@@ -339,15 +339,8 @@ export function startServer(options: ServerOptions): void {
                 if (latestVer >= 0) {
                     currentHtml = getVersionHtml(cwd, name, latestVer);
                 } else {
-                    currentHtml = [
-                        '<!DOCTYPE html>',
-                        '<html><head><title>New Page</title></head>',
-                        '<body>',
-                        '  <div class="viewerPanel">',
-                        '    <p>Hello from PageLM. Tell me what to build.</p>',
-                        '  </div>',
-                        '</body></html>',
-                    ].join('\n');
+                    // Fallback for pages created before template support
+                    currentHtml = '<!DOCTYPE html>\n<html><head><title>New Page</title></head>\n<body></body></html>';
                 }
 
                 // Strip framework sections before sending to LLM

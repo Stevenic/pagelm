@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Page</title>
+<link rel="stylesheet" href="/frameworks/fluentlm/fluentlm.min.css">
+<link rel="stylesheet" href="/frameworks/fluentlm/theme-light.css">
+<link rel="stylesheet" href="/frameworks/fluentlm/theme-dark.css">
+<script src="/frameworks/fluentlm/fluentlm.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--fontFamily);
+    background: var(--bodyBackground);
+    color: var(--bodyText);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s, color 0.25s;
+  }
+  .template-message {
+    text-align: center;
+    padding: 2rem;
+  }
+  .template-message h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--bodyText);
+  }
+  .template-message p {
+    font-size: 1.1rem;
+    color: var(--neutralSecondary);
+  }
+</style>
+</head>
+<body>
+  <div class="template-message">
+    <h1>Ready to build</h1>
+    <p>Tell me what to build.</p>
+  </div>
+<script>
+  // Apply theme from query parameter
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var theme = params.get('theme');
+    if (theme === 'dark') {
+      document.documentElement.classList.add('fluent-dark');
+    }
+  })();
+
+  // Listen for live theme changes from parent
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.action === 'setTheme') {
+      if (e.data.dark) {
+        document.documentElement.classList.add('fluent-dark');
+      } else {
+        document.documentElement.classList.remove('fluent-dark');
+      }
+    }
+  });
+</script>
+</body>
+</html>

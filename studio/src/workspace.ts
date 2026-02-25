@@ -1,5 +1,9 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync, existsSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // ---------------------------------------------------------------------------
 // Types
@@ -99,6 +103,17 @@ export function validatePageName(name: string): string | null {
 }
 
 // ---------------------------------------------------------------------------
+// Framework templates
+// ---------------------------------------------------------------------------
+
+export function getFrameworkTemplate(framework: string): string | null {
+    if (!framework || framework === 'none') return null;
+    const templatePath = resolve(__dirname, '..', '..', 'frameworks', framework, 'template.html');
+    if (!existsSync(templatePath)) return null;
+    return readFileSync(templatePath, 'utf-8');
+}
+
+// ---------------------------------------------------------------------------
 // CRUD
 // ---------------------------------------------------------------------------
 
@@ -115,6 +130,16 @@ export function createPage(cwd: string, settings: PageSettings): void {
     const dir = pageDir(cwd, settings.name);
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'settings.json'), JSON.stringify(settings, null, 2));
+
+    // Write framework template as version 0 if available
+    const template = getFrameworkTemplate(settings.framework);
+    if (template) {
+        writeFileSync(join(dir, 'page-0.html'), template);
+        writeFileSync(join(dir, 'page-0.json'), JSON.stringify({
+            message: '',
+            response: { html: template, changeCount: 0 },
+        }, null, 2));
+    }
 }
 
 export function getPageSettings(cwd: string, name: string): PageSettings {

@@ -14,6 +14,7 @@ const FRAMEWORK_ASSETS: Record<string, FrameworkAssets> = {
         css: [
             '/frameworks/fluentlm/fluentlm.min.css',
             '/frameworks/fluentlm/theme-light.css',
+            '/frameworks/fluentlm/theme-dark.css',
         ],
         js: ['/frameworks/fluentlm/fluentlm.min.js'],
     },

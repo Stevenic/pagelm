@@ -363,6 +363,19 @@ window.addEventListener('message', function(e) {
 // ---------------------------------------------------------------------------
 
 function updatePreview(html) {
+    // Inject theme class into <html> tag when studio is in dark mode
+    var isDark = document.documentElement.classList.contains('fluent-dark');
+    if (isDark && html) {
+        html = html.replace(/<html([^>]*)>/, function(match, attrs) {
+            if (/class\s*=/.test(attrs)) {
+                // Append fluent-dark to existing class attribute
+                return match.replace(/class\s*=\s*"([^"]*)"/, 'class="$1 fluent-dark"')
+                             .replace(/class\s*=\s*'([^']*)'/, "class='$1 fluent-dark'");
+            }
+            return '<html' + attrs + ' class="fluent-dark">';
+        });
+    }
+
     var doc = preview.contentDocument;
     if (doc) {
         doc.open();
