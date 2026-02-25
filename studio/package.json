@@ -1,0 +1,29 @@
+{
+  "name": "@pagelm/studio",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "pagelm-studio": "./bin/pagelm-studio.js"
+  },
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node bin/pagelm-studio.js start"
+  },
+  "dependencies": {
+    "@pagelm/anthropic": "*",
+    "@pagelm/azure": "*",
+    "@pagelm/core": "*",
+    "@pagelm/corelm": "*",
+    "@pagelm/corelm-compiler": "*",
+    "@pagelm/openai": "*",
+    "@pagelm/oss": "*",
+    "express": "^5.1.0",
+    "fluentlm": "*",
+    "open": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "typescript": "^5.7.0"
+  }
+}

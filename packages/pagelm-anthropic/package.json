@@ -1,0 +1,14 @@
+{
+  "name": "@pagelm/anthropic",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@pagelm/corelm": "*",
+    "@pagelm/core": "*",
+    "@anthropic-ai/sdk": "^0.75.0"
+  }
+}

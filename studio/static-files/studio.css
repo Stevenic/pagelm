@@ -1,0 +1,46 @@
+/* ============================================================
+   PageLM Studio — Inline style overrides
+   Extracted from index.html inline styles.
+   ============================================================ */
+
+/* Toolbar: collapse gap between buttons */
+#toolbar {
+    gap: 0;
+}
+
+/* Pages tab: vertical padding around content */
+.pages-tab-content {
+    padding: var(--spacingS2) 0;
+}
+
+/* Page settings stack: gap + padding */
+.page-settings-stack {
+    gap: var(--spacingS2);
+    padding: var(--spacingS2) 0;
+}
+
+/* Model input field: hidden by default (toggled by JS) */
+#model-input-field {
+    display: none;
+}
+
+/* Wizard step stacks: consistent gap */
+.wizard-step-stack {
+    gap: var(--spacingS2);
+}
+
+/* CoreLM checkbox: top margin */
+.corelm-checkbox {
+    margin-top: var(--spacingS1);
+}
+
+/* CoreLM description: smaller secondary text */
+.corelm-description {
+    font-size: var(--fontSizeSmall);
+    margin-top: 0;
+}
+
+/* Wizard back button: hidden until step > 0 */
+#wizard-back-btn.wizard-back--hidden {
+    visibility: hidden;
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="fluentlm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLM Builder</title>
+    <link rel="stylesheet" href="/fluentlm/fluentlm.min.css">
+    <link rel="stylesheet" href="/fluentlm/theme-light.css">
+    <link rel="stylesheet" href="/fluentlm/theme-dark.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/static-files/studio.css">
+</head>
+<body>
+    <!-- Main layout: preview + toolbar -->
+    <div id="app-layout">
+        <!-- Preview area -->
+        <div id="preview-area">
+            <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+
+        <!-- Icon toolbar (right edge) -->
+        <div id="toolbar" class="flm-stack">
+            <button class="flm-button flm-button--icon toolbar-btn" aria-label="Builder" data-toolbar="chat-panel" data-tooltip="Builder"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="toolbar-icon"><path d="M7 18.5H6.2c-1.77 0-3.2-1.43-3.2-3.2V7.7C3 5.93 4.43 4.5 6.2 4.5h11.6c1.77 0 3.2 1.43 3.2 3.2v7.6c0 1.77-1.43 3.2-3.2 3.2H12l-4.2 3.2c-.5.38-1.2.02-1.2-.6V18.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="11.5" r="1" fill="currentColor"/><circle cx="12" cy="11.5" r="1" fill="currentColor"/><circle cx="15.5" cy="11.5" r="1" fill="currentColor"/></svg></button>
+            <button class="flm-button flm-button--icon toolbar-btn" aria-label="Pages" data-toolbar="pages-panel" data-tooltip="Pages"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true" class="toolbar-icon"><path d="M9 4h10l4 4v20a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M19 4v4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14h12M10 18h12M10 22h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="flm-button flm-button--icon toolbar-btn" data-icon="History" aria-label="History" data-toolbar="history-panel" data-tooltip="History"></button>
+            <button class="flm-button flm-button--icon toolbar-btn" id="viewport-btn" aria-label="Toggle viewport" data-tooltip="Toggle mobile/desktop"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true" class="toolbar-icon"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/><path d="M9 22h6M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="22" y="9" width="7" height="14" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="25.5" cy="20.5" r="0.8" fill="currentColor"/></svg></button>
+            <button class="flm-button flm-button--icon toolbar-btn" id="save-btn" aria-label="Save HTML" data-tooltip="Download HTML"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true" class="toolbar-icon"><path d="M8 4h11l5 5v18a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M19 4v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 12v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 18l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 24h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="toolbar-spacer"></div>
+            <button class="flm-button flm-button--icon toolbar-btn" data-icon="Settings" aria-label="Settings" data-toolbar="settings-panel" data-tooltip="Settings"></button>
+        </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- PANELS (slide from right, overlay preview, toolbar stays visible)  -->
+    <!-- ================================================================== -->
+
+    <!-- Builder panel -->
+    <div class="flm-panel-overlay" id="chat-panel-overlay"></div>
+    <div class="flm-panel flm-panel--medium" id="chat-panel">
+        <div class="flm-panel-header">
+            <h2 class="flm-panel-title">Builder</h2>
+            <button class="flm-panel-close" data-icon="Cancel" aria-label="Close" data-panel-close></button>
+        </div>
+        <div class="flm-panel-body" id="chat-messages"></div>
+        <div class="flm-panel-footer chat-footer">
+            <textarea class="flm-textfield-input" id="chat-input" placeholder="Describe the page you want to build..." rows="3"></textarea>
+            <button class="flm-button flm-button--primary" id="send-btn" data-icon="Send">Send</button>
+        </div>
+    </div>
+
+    <!-- Pages panel -->
+    <div class="flm-panel-overlay" id="pages-panel-overlay"></div>
+    <div class="flm-panel flm-panel--medium" id="pages-panel">
+        <div class="flm-panel-header">
+            <h2 class="flm-panel-title">Pages</h2>
+            <button class="flm-panel-close" data-icon="Cancel" aria-label="Close" data-panel-close></button>
+        </div>
+        <div class="flm-panel-body">
+            <div class="flm-pivot">
+                <div class="flm-pivot-tabs" role="tablist">
+                    <button class="flm-pivot-tab flm-pivot-tab--active" data-panel="pages-tab" role="tab">Pages</button>
+                    <button class="flm-pivot-tab" data-panel="page-settings-tab" role="tab">Page Settings</button>
+                </div>
+                <!-- Pages tab -->
+                <div class="flm-pivot-panel flm-pivot-panel--active" id="pages-tab" role="tabpanel">
+                    <div class="pages-tab-content">
+                        <button class="flm-button flm-button--primary" id="new-page-btn" data-icon="Add">New Page</button>
+                    </div>
+                    <div id="page-list" class="page-list"></div>
+                </div>
+                <!-- Page Settings tab -->
+                <div class="flm-pivot-panel" id="page-settings-tab" role="tabpanel">
+                    <div class="flm-stack page-settings-stack">
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="page-framework-select">Framework</label>
+                            <select class="flm-dropdown-select" id="page-framework-select">
+                                <option value="fluentlm">FluentLM</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="page-mode-select">Mode</label>
+                            <select class="flm-dropdown-select" id="page-mode-select">
+                                <option value="html">HTML (Classic)</option>
+                                <option value="corelm">CoreLM (Structured)</option>
+                            </select>
+                        </div>
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="page-ext-styles">External Stylesheets (one URL per line)</label>
+                            <textarea class="flm-textfield-input" id="page-ext-styles" rows="2" placeholder="https://cdn.example.com/extra.css"></textarea>
+                        </div>
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="page-ext-scripts">External Scripts (one URL per line)</label>
+                            <textarea class="flm-textfield-input" id="page-ext-scripts" rows="2" placeholder="https://cdn.example.com/lib.js"></textarea>
+                        </div>
+                        <button class="flm-button flm-button--primary" id="save-page-settings">Save Page Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History panel -->
+    <div class="flm-panel-overlay" id="history-panel-overlay"></div>
+    <div class="flm-panel flm-panel--medium" id="history-panel">
+        <div class="flm-panel-header">
+            <h2 class="flm-panel-title">History</h2>
+            <button class="flm-panel-close" data-icon="Cancel" aria-label="Close" data-panel-close></button>
+        </div>
+        <div class="flm-panel-body">
+            <div id="version-list" class="version-list"></div>
+        </div>
+    </div>
+
+    <!-- Settings panel (global) -->
+    <div class="flm-panel-overlay" id="settings-panel-overlay"></div>
+    <div class="flm-panel flm-panel--medium" id="settings-panel">
+        <div class="flm-panel-header">
+            <h2 class="flm-panel-title">Settings</h2>
+            <button class="flm-panel-close" data-icon="Cancel" aria-label="Close" data-panel-close></button>
+        </div>
+        <div class="flm-panel-body">
+            <!-- Appearance accordion -->
+            <details class="settings-accordion" id="appearance-accordion">
+                <summary class="settings-accordion-header">Appearance</summary>
+                <div class="settings-accordion-body">
+                    <div class="flm-textfield">
+                        <label class="flm-label" for="theme-select">Theme</label>
+                        <select class="flm-dropdown-select" id="theme-select">
+                            <option value="system">System</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Builder Model accordion -->
+            <details class="settings-accordion" id="model-accordion" open>
+                <summary class="settings-accordion-header">Builder Model</summary>
+                <div class="settings-accordion-body">
+                    <div class="flm-textfield">
+                        <label class="flm-label" for="provider-select">Provider</label>
+                        <select class="flm-dropdown-select" id="provider-select">
+                            <option value="anthropic">Anthropic</option>
+                            <option value="openai">OpenAI</option>
+                            <option value="azure">Azure</option>
+                            <option value="oss">OSS</option>
+                        </select>
+                    </div>
+                    <div class="flm-textfield">
+                        <label class="flm-label" for="api-key-input">API Key</label>
+                        <input class="flm-textfield-input" id="api-key-input" type="password" placeholder="sk-...">
+                    </div>
+                    <div class="flm-textfield" id="model-select-field">
+                        <label class="flm-label" for="model-select">Model</label>
+                        <select class="flm-dropdown-select" id="model-select" disabled>
+                            <option value="claude-opus-4-6">Claude Opus 4.6</option>
+                            <option value="claude-sonnet-4-5">Claude Sonnet 4.5</option>
+                        </select>
+                    </div>
+                    <div class="flm-textfield" id="model-input-field">
+                        <label class="flm-label" for="model-input">Model</label>
+                        <input class="flm-textfield-input" id="model-input" type="text" placeholder="e.g. gpt-4o" disabled>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="flm-panel-footer settings-footer">
+            <button class="flm-button flm-button--primary" id="save-settings-btn" data-icon="Save">Save Settings</button>
+        </div>
+    </div>
+
+    <!-- New Page wizard modal -->
+    <div class="flm-modal-overlay" id="new-page-modal">
+        <div class="flm-dialog wizard-dialog">
+            <div class="flm-dialog-header">
+                <h2 class="flm-dialog-title">Create a Page</h2>
+                <button class="flm-dialog-close" data-modal-close data-icon="Dismiss" aria-label="Close"></button>
+            </div>
+
+            <div class="flm-dialog-body wizard-body">
+                <!-- Step 1: Details -->
+                <div class="wizard-panel wizard-panel--active" id="wizard-step-0">
+                    <div class="flm-stack wizard-step-stack">
+                        <div class="flm-textfield">
+                            <label class="flm-label flm-label--required" for="new-page-name">Page Name</label>
+                            <input class="flm-textfield-input" id="new-page-name" type="text" placeholder="my-landing-page">
+                        </div>
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="new-page-description">Page Description</label>
+                            <textarea class="flm-textfield-input" id="new-page-description" rows="3"
+                                placeholder="Describe what you want to build..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Framework -->
+                <div class="wizard-panel" id="wizard-step-1">
+                    <div class="flm-stack wizard-step-stack">
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="new-page-framework">Framework</label>
+                            <select class="flm-dropdown-select" id="new-page-framework">
+                                <option value="fluentlm">FluentLM</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <label class="flm-checkbox corelm-checkbox">
+                            <input type="checkbox" class="flm-checkbox-input" id="new-page-corelm">
+                            <span class="flm-checkbox-label">Use structured mode (CoreLM)</span>
+                        </label>
+                        <p class="flm-text--secondary corelm-description">Structured mode uses a typed UI representation instead of raw HTML, enabling more reliable edits and consistent output.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3: Libraries -->
+                <div class="wizard-panel" id="wizard-step-2">
+                    <div class="flm-stack wizard-step-stack">
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="new-page-ext-styles">External Stylesheets (one URL per line)</label>
+                            <textarea class="flm-textfield-input" id="new-page-ext-styles" rows="2"
+                                placeholder="https://cdn.example.com/extra.css"></textarea>
+                        </div>
+                        <div class="flm-textfield">
+                            <label class="flm-label" for="new-page-ext-scripts">External Scripts (one URL per line)</label>
+                            <textarea class="flm-textfield-input" id="new-page-ext-scripts" rows="2"
+                                placeholder="https://cdn.example.com/lib.js"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flm-dialog-footer wizard-footer">
+                <button class="flm-button wizard-back--hidden" id="wizard-back-btn">Back</button>
+                <div class="wizard-dots" id="wizard-dots">
+                    <span class="wizard-dot wizard-dot--active"></span>
+                    <span class="wizard-dot"></span>
+                    <span class="wizard-dot"></span>
+                </div>
+                <button class="flm-button flm-button--primary" id="wizard-next-btn" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/fluentlm/fluentlm.min.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>

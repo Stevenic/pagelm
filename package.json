@@ -1,0 +1,14 @@
+{
+  "name": "pagelm",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "frameworks/*",
+    "studio"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "dev": "npm run dev --workspace=studio"
+  }
+}

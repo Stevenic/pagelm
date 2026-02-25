@@ -1,0 +1,13 @@
+{
+  "name": "@pagelm/core",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@pagelm/corelm": "*",
+    "cheerio": "^1.2.0"
+  }
+}

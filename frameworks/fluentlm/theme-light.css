@@ -1,0 +1,169 @@
+/* ==========================================================================
+   FluentLM — Light Theme
+   Semantic color tokens mapped to the default (non-inverted) palette.
+   Applied when <html class="fluentlm"> or as the default.
+   ========================================================================== */
+
+:root,
+.fluentlm {
+  /* -----------------------------------------------------------------------
+     BODY / BACKGROUND
+     ----------------------------------------------------------------------- */
+  --bodyBackground:          var(--white);
+  --bodyBackgroundHovered:   var(--neutralLighter);
+  --bodyBackgroundChecked:   var(--neutralLight);
+  --bodyStandoutBackground:  var(--neutralLighterAlt);
+  --bodyFrameBackground:     var(--white);
+  --bodyFrameDivider:        var(--neutralLight);
+  --bodyDivider:             var(--neutralLight);
+
+  /* -----------------------------------------------------------------------
+     TEXT
+     ----------------------------------------------------------------------- */
+  --bodyText:                var(--neutralPrimary);
+  --bodyTextChecked:         var(--neutralDark);
+  --bodySubtext:             var(--neutralSecondary);
+  --disabledText:            var(--neutralTertiary);
+  --disabledBodyText:        var(--neutralTertiary);
+  --disabledSubtext:         var(--neutralQuaternary);
+  --disabledBodySubtext:     var(--neutralTertiaryAlt);
+
+  /* -----------------------------------------------------------------------
+     LINKS
+     ----------------------------------------------------------------------- */
+  --link:                    var(--themePrimary);
+  --linkHovered:             var(--themeDarker);
+  --actionLink:              var(--neutralPrimary);
+  --actionLinkHovered:       var(--neutralDark);
+
+  /* -----------------------------------------------------------------------
+     BUTTONS — Default
+     ----------------------------------------------------------------------- */
+  --buttonBackground:              var(--white);
+  --buttonBackgroundHovered:       var(--neutralLighter);
+  --buttonBackgroundChecked:       var(--neutralLight);
+  --buttonBackgroundCheckedHovered: var(--neutralQuaternaryAlt);
+  --buttonBackgroundPressed:       var(--neutralLight);
+  --buttonBackgroundDisabled:      var(--neutralLighter);
+  --buttonBorder:                  var(--neutralSecondaryAlt);
+  --buttonBorderDisabled:          var(--neutralLighter);
+  --buttonText:                    var(--neutralPrimary);
+  --buttonTextHovered:             var(--neutralDark);
+  --buttonTextChecked:             var(--neutralDark);
+  --buttonTextCheckedHovered:      var(--black);
+  --buttonTextPressed:             var(--neutralDark);
+  --buttonTextDisabled:            var(--neutralTertiary);
+
+  /* -----------------------------------------------------------------------
+     BUTTONS — Primary
+     ----------------------------------------------------------------------- */
+  --primaryButtonBackground:          var(--themePrimary);
+  --primaryButtonBackgroundHovered:   var(--themeDarkAlt);
+  --primaryButtonBackgroundPressed:   var(--themeDark);
+  --primaryButtonBackgroundDisabled:  var(--neutralLighter);
+  --primaryButtonBorder:              transparent;
+  --primaryButtonText:                var(--white);
+  --primaryButtonTextHovered:         var(--white);
+  --primaryButtonTextPressed:         var(--white);
+  --primaryButtonTextDisabled:        var(--neutralQuaternary);
+
+  /* -----------------------------------------------------------------------
+     BUTTONS — Accent
+     ----------------------------------------------------------------------- */
+  --accentButtonBackground:  var(--themePrimary);
+  --accentButtonText:        var(--white);
+
+  /* -----------------------------------------------------------------------
+     INPUTS
+     ----------------------------------------------------------------------- */
+  --inputBackground:                    var(--white);
+  --inputBackgroundChecked:             var(--themePrimary);
+  --inputBackgroundCheckedHovered:      var(--themeDarkAlt);
+  --inputPlaceholderBackgroundChecked:  var(--themeLighter);
+  --inputForegroundChecked:             var(--white);
+  --inputBorder:                        var(--neutralSecondary);
+  --smallInputBorder:                   var(--neutralSecondary);
+  --inputBorderHovered:                 var(--neutralPrimary);
+  --inputFocusBorderAlt:                var(--themePrimary);
+  --inputText:                          var(--neutralPrimary);
+  --inputTextHovered:                   var(--neutralDark);
+  --inputPlaceholderText:               var(--neutralSecondary);
+  --inputIcon:                          var(--themePrimary);
+  --inputIconHovered:                   var(--themeDark);
+  --inputIconDisabled:                  var(--neutralTertiary);
+
+  /* -----------------------------------------------------------------------
+     LISTS
+     ----------------------------------------------------------------------- */
+  --listBackground:                  var(--white);
+  --listText:                        var(--neutralPrimary);
+  --listItemBackgroundHovered:       var(--neutralLighter);
+  --listItemBackgroundChecked:       var(--neutralLight);
+  --listItemBackgroundCheckedHovered: var(--neutralQuaternaryAlt);
+  --listHeaderBackgroundHovered:     var(--neutralLighter);
+  --listHeaderBackgroundPressed:     var(--neutralLight);
+
+  /* -----------------------------------------------------------------------
+     MENUS
+     ----------------------------------------------------------------------- */
+  --menuBackground:              var(--white);
+  --menuDivider:                 var(--neutralTertiaryAlt);
+  --menuIcon:                    var(--themePrimary);
+  --menuHeader:                  var(--themePrimary);
+  --menuItemBackgroundHovered:   var(--neutralLighter);
+  --menuItemBackgroundPressed:   var(--neutralLight);
+  --menuItemText:                var(--neutralPrimary);
+  --menuItemTextHovered:         var(--neutralDark);
+
+  /* -----------------------------------------------------------------------
+     CARDS
+     ----------------------------------------------------------------------- */
+  --cardStandoutBackground:  var(--white);
+  --cardShadow:              var(--elevation4);
+  --cardShadowHovered:       var(--elevation8);
+  --variantBorder:           var(--neutralLight);
+  --variantBorderHovered:    var(--neutralTertiaryAlt);
+
+  /* -----------------------------------------------------------------------
+     DISABLED / FOCUS
+     ----------------------------------------------------------------------- */
+  --disabledBackground:  var(--neutralLighter);
+  --disabledBorder:      var(--neutralLighter);
+  --focusBorder:         var(--neutralSecondary);
+
+  /* -----------------------------------------------------------------------
+     STATUS — Backgrounds
+     ----------------------------------------------------------------------- */
+  --infoBackground:           var(--neutralLighter);
+  --errorBackground:          #FDE7E9;
+  --blockingBackground:       #FDE7E9;
+  --warningBackground:        #FFF4CE;
+  --severeWarningBackground:  #FED9CC;
+  --successBackground:        #DFF6DD;
+
+  /* -----------------------------------------------------------------------
+     STATUS — Icons
+     ----------------------------------------------------------------------- */
+  --infoIcon:           var(--neutralSecondary);
+  --errorIcon:          #A80000;
+  --blockingIcon:       #FDE7E9;
+  --warningIcon:        #797775;
+  --severeWarningIcon:  var(--orange);
+  --successIcon:        var(--green);
+
+  /* -----------------------------------------------------------------------
+     STATUS — Text
+     ----------------------------------------------------------------------- */
+  --errorText:    var(--redDark);
+  --messageText:  var(--neutralPrimary);
+  --messageLink:  var(--themeDark);
+  --messageLinkHovered: var(--themeDarker);
+  --warningText:  var(--neutralPrimary);
+  --successText:  var(--green);
+
+  /* -----------------------------------------------------------------------
+     MISC
+     ----------------------------------------------------------------------- */
+  --defaultStateBackground:  var(--neutralLighterAlt);
+  --overlayBackground:       var(--blackTranslucent40);
+}

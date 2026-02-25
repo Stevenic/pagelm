@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../packages/corelm" },
+    { "path": "../packages/corelm-compiler" },
+    { "path": "../packages/pagelm" },
+    { "path": "../packages/pagelm-anthropic" },
+    { "path": "../packages/pagelm-openai" },
+    { "path": "../packages/pagelm-azure" },
+    { "path": "../packages/pagelm-oss" }
+  ]
+}

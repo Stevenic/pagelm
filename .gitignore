@@ -82,6 +82,12 @@ out
 .nuxt
 dist
 
+# Exception: FluentLM dist files are checked in
+!frameworks/fluentlm/*.css
+!frameworks/fluentlm/*.js
+!frameworks/fluentlm/*.md
+!frameworks/fluentlm/*.llmd
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -137,3 +143,6 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+.pagelm
+.pagelm-*
